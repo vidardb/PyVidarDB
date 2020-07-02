@@ -1,0 +1,6 @@
+[submodule "pybind11"]
+	path = dependencies/pybind11
+	url = https://github.com/pybind/pybind11.git
+[submodule "dependencies/vidardb"]
+	path = dependencies/vidardb
+	url = https://github.com/vidardb/vidardb.git
