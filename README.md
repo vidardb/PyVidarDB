@@ -12,3 +12,7 @@ git clone https://github.com/vidardb/PyVidarDB.git --recursive
 cd PyVidarDB
 python setup.py install
 ```
+
+## Usage
+
+See [simple_test.py](examples/simple_test.py) for the basic usage.
