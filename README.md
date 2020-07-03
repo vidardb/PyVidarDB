@@ -8,9 +8,8 @@ of [twmht/python-rocksdb](https://github.com/twmht/python-rocksdb/tree/pybind11)
 Tested with Python3.6, Ubuntu 16.04.
 
 ```bash
-git clone https://github.com/vidardb/PyVidarDB.git --recursive
-cd PyVidarDB
-python setup.py install
+git clone --recursive https://github.com/vidardb/PyVidarDB.git
+pip install ./PyVidarDB
 ```
 
 ## Usage
