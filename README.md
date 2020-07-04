@@ -5,7 +5,7 @@ of [twmht/python-rocksdb](https://github.com/twmht/python-rocksdb/tree/pybind11)
 
 ## Use PyVidarDB
 
-Tested with Python3.6, Ubuntu 16.04.
+Tested with Python3.6 and Ubuntu 18.04.
 
 ```bash
 git clone --recursive https://github.com/vidardb/PyVidarDB.git
