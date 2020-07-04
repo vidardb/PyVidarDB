@@ -36,13 +36,13 @@ Status py_DB::Put(const WriteOptions &options, const std::string &key,
   return db_ptr->Put(options, key, value);
 }
 
-std::unique_ptr<Blob> py_DB::Get(ReadOptions &options, const std::string &key) {
+std::string py_DB::Get(ReadOptions &options, const std::string &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument("db has been closed");
   }
-  std::unique_ptr<Blob> blob(new Blob());
-  blob->status = db_ptr->Get(options, key, &blob->data);
-  return blob;
+  std::string value;
+  db_ptr->Get(options, key, &value);
+  return value;
 }
 
 Status py_DB::Delete(const WriteOptions &options, const std::string &key) {
@@ -68,8 +68,8 @@ PYBIND11_MODULE(pyvidardb, m) {
   init_option(m);
   init_slice(m);
   init_status(m);
-  py::class_<Blob>(m, "Blob")
-      .def(py::init<>())
-      .def_readwrite("status", &Blob::status)
-      .def_property_readonly("data", &Blob::get_data);
+//  py::class_<Blob>(m, "Blob")
+//      .def(py::init<>())
+//      .def_readwrite("status", &Blob::status)
+//      .def_property_readonly("data", &Blob::get_data);
 }

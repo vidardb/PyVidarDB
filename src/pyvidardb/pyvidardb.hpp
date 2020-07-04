@@ -27,7 +27,7 @@ public:
   Status Open(const Options &options, const std::string &name);
   Status Put(const WriteOptions &options, const std::string &key,
              const std::string &value);
-  std::unique_ptr<Blob> Get(ReadOptions &options, const std::string &key);
+  std::string Get(ReadOptions &options, const std::string &key);
   Status Delete(const WriteOptions &options, const std::string &key);
   void Close();
   ~py_DB();

@@ -13,9 +13,8 @@ s = db.put(opts, "key1", "value1")
 assert (s.ok())
 
 opts = pyvidardb.ReadOptions()
-blob = db.get(opts, "key1")
-print(blob.data)
-print(blob.status.ok())
+value = db.get(opts, "key1")
+assert value == "value1"
 
 opts = pyvidardb.WriteOptions()
 s = db.delete(opts, "key1")

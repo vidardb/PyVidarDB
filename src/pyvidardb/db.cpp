@@ -13,8 +13,7 @@ void init_db(py::module &m) {
       .def("put", (Status(py_DB::*)(const WriteOptions &, const std::string &,
                                     const std::string &)) &
                       py_DB::Put)
-      .def("get", (std::unique_ptr<Blob>(py_DB::*)(ReadOptions & options,
-                                                   const std::string &)) &
+      .def("get", (std::string(py_DB::*)(ReadOptions & options, const std::string &)) &
                       py_DB::Get)
       .def("delete", (Status(py_DB::*)(const WriteOptions &options,
                                        const std::string &key)) &
