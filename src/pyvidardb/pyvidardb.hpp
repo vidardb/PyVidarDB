@@ -3,7 +3,6 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/db.h>
 #include <vidardb/options.h>
-#include <vidardb/slice.h>
 #include <vidardb/status.h>
 
 using namespace vidardb;
