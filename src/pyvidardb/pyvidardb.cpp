@@ -1,7 +1,5 @@
 #include "pyvidardb.hpp"
 #include <iostream>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
 #include <stdexcept>
 
 const std::string kDBHasBeenClosed("DB has been closed!");
@@ -72,14 +70,8 @@ void init_db(py::module &);
 
 void init_option(py::module &);
 
-void init_slice(py::module &);
-
-void init_status(py::module &);
-
 PYBIND11_MODULE(pyvidardb, m) {
   m.doc() = "Python VidarDB API";
   init_db(m);
   init_option(m);
-  init_slice(m);
-  init_status(m);
 }
