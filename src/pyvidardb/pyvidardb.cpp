@@ -28,28 +28,28 @@ Status py_DB::Open(const Options &options, const std::string &name) {
   return st;
 }
 
-Status py_DB::Put(const WriteOptions &options, const std::string &key,
-                  const std::string &value) {
+Status py_DB::Put(const std::string &key, const std::string &value) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument("db has been closed");
   }
-  return db_ptr->Put(options, key, value);
+  return db_ptr->Put(WriteOptions(), key, value);
 }
 
-std::string py_DB::Get(ReadOptions &options, const std::string &key) {
+std::string py_DB::Get(const std::string &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument("db has been closed");
   }
   std::string value;
-  db_ptr->Get(options, key, &value);
+  ReadOptions ro;
+  db_ptr->Get(ro, key, &value);
   return value;
 }
 
-Status py_DB::Delete(const WriteOptions &options, const std::string &key) {
+Status py_DB::Delete(const std::string &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument("db has been closed");
   }
-  return db_ptr->Delete(options, db_ptr->DefaultColumnFamily(), key);
+  return db_ptr->Delete(WriteOptions(), db_ptr->DefaultColumnFamily(), key);
 }
 
 void init_db(py::module &);
@@ -61,15 +61,9 @@ void init_slice(py::module &);
 void init_status(py::module &);
 
 PYBIND11_MODULE(pyvidardb, m) {
-  m.doc() = R"pbdoc(
-      python vidardb API
-  )pbdoc";
+  m.doc() = "Python VidarDB API";
   init_db(m);
   init_option(m);
   init_slice(m);
   init_status(m);
-//  py::class_<Blob>(m, "Blob")
-//      .def(py::init<>())
-//      .def_readwrite("status", &Blob::status)
-//      .def_property_readonly("data", &Blob::get_data);
 }
