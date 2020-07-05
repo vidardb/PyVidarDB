@@ -4,6 +4,8 @@
 #include <pybind11/stl_bind.h>
 #include <stdexcept>
 
+const std::string kDBHasBeenClosed("DB has been closed!");
+
 py_DB::py_DB() : db_ptr(nullptr) {}
 
 py_DB::~py_DB() {
@@ -14,42 +16,56 @@ py_DB::~py_DB() {
 
 void py_DB::Close() {
   if (db_ptr == nullptr) {
-    throw std::invalid_argument("db has been closed");
+    throw std::invalid_argument(kDBHasBeenClosed);
   }
   delete db_ptr;
   db_ptr = nullptr;
 }
 
-Status py_DB::Open(const Options &options, const std::string &name) {
+void py_DB::Open(const Options &options, const std::string &name) {
   if (db_ptr != nullptr) {
-    throw std::invalid_argument("db has been opened");
+    throw std::invalid_argument(kDBHasBeenClosed);
   }
   Status st = DB::Open(options, name, &db_ptr);
-  return st;
+  report_error_if_necessary(st);
 }
 
-Status py_DB::Put(const std::string &key, const std::string &value) {
+void py_DB::Put(const std::string &key, const std::string &value) {
   if (db_ptr == nullptr) {
-    throw std::invalid_argument("db has been closed");
+    throw std::invalid_argument(kDBHasBeenClosed);
   }
-  return db_ptr->Put(WriteOptions(), key, value);
+  Status st = db_ptr->Put(WriteOptions(), key, value);
+  report_error_if_necessary(st);
 }
 
-std::string py_DB::Get(const std::string &key) {
+py::object py_DB::Get(const std::string &key) {
   if (db_ptr == nullptr) {
-    throw std::invalid_argument("db has been closed");
+    throw std::invalid_argument(kDBHasBeenClosed);
   }
   std::string value;
   ReadOptions ro;
-  db_ptr->Get(ro, key, &value);
-  return value;
+  Status st = db_ptr->Get(ro, key, &value);
+  if (st.IsNotFound()) {
+    return py::none();
+  } else {
+    report_error_if_necessary(st);
+  }
+  return py::str(value);
 }
 
-Status py_DB::Delete(const std::string &key) {
+void py_DB::Delete(const std::string &key) {
   if (db_ptr == nullptr) {
-    throw std::invalid_argument("db has been closed");
+    throw std::invalid_argument(kDBHasBeenClosed);
   }
-  return db_ptr->Delete(WriteOptions(), db_ptr->DefaultColumnFamily(), key);
+  Status st =
+      db_ptr->Delete(WriteOptions(), db_ptr->DefaultColumnFamily(), key);
+  report_error_if_necessary(st);
+}
+
+void report_error_if_necessary(Status status) {
+  if (!status.ok()) {
+    throw std::runtime_error(status.ToString());
+  }
 }
 
 void init_db(py::module &);

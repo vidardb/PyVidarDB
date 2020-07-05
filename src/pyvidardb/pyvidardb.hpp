@@ -12,13 +12,15 @@ namespace py = pybind11;
 class py_DB {
 public:
   py_DB();
-  Status Open(const Options &options, const std::string &name);
-  Status Put(const std::string &key, const std::string &value);
-  std::string Get(const std::string &key);
-  Status Delete(const std::string &key);
+  void Open(const Options &options, const std::string &name);
+  void Put(const std::string &key, const std::string &value);
+  py::object Get(const std::string &key);
+  void Delete(const std::string &key);
   void Close();
   ~py_DB();
 
 private:
   DB *db_ptr;
 };
+
+void report_error_if_necessary(Status status);

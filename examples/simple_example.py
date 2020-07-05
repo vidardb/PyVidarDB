@@ -5,16 +5,16 @@ db = pyvidardb.DB()
 opts = pyvidardb.Options()
 opts.write_buffer_size = 512 * 1024 * 1024
 
-s = db.open(opts, "./simple_example")
-assert(s.ok())
+db.open(opts, "./simple_example")
 
-s = db.put("key1", "value1")
-assert (s.ok())
+db.put("key1", "value1")
 
 value = db.get("key1")
 assert value == "value1"
 
-s = db.delete("key1")
-assert(s.ok())
+key_not_exist = db.get("key2")
+assert key_not_exist is None
+
+db.delete("key1")
 
 db.close()

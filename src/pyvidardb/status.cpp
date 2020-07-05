@@ -20,22 +20,5 @@ void init_status(py::module &m) {
       .def("is_busy", &Status::IsBusy)
       .def("is_expired", &Status::IsExpired)
       .def("is_try_again", &Status::IsTryAgain)
-      .def("to_string", &Status::ToString)
-      .def("code", &Status::code);
-
-  py::enum_<vidardb::Status::Code>(status, "kCode")
-      .value("kOk", vidardb::Status::Code::kOk)
-      .value("kNotFound", vidardb::Status::Code::kNotFound)
-      .value("kCorruption", vidardb::Status::Code::kCorruption)
-      .value("kNotSupported", vidardb::Status::Code::kNotSupported)
-      .value("kInvalidArgument", vidardb::Status::Code::kInvalidArgument)
-      .value("kIOError", vidardb::Status::Code::kIOError)
-      .value("kIncomplete", vidardb::Status::Code::kIncomplete)
-      .value("kShutdownInProgress", vidardb::Status::Code::kShutdownInProgress)
-      .value("kTimedOut", vidardb::Status::Code::kTimedOut)
-      .value("kAborted", vidardb::Status::Code::kAborted)
-      .value("kBusy", vidardb::Status::Code::kBusy)
-      .value("kExpired", vidardb::Status::Code::kExpired)
-      .value("kTryAgain", vidardb::Status::Code::kTryAgain)
-      .export_values();
+      .def("to_string", &Status::ToString);
 }
