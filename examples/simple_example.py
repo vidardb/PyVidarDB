@@ -3,22 +3,18 @@ import pyvidardb
 db = pyvidardb.DB()
 
 opts = pyvidardb.Options()
-opts.create_if_missing = True
+opts.write_buffer_size = 512 * 1024 * 1024
 
-s = db.open(opts, "./simple_test")
-assert(s.ok())
+db.open("./simple_example", opts)
 
-opts = pyvidardb.WriteOptions()
-s = db.put(opts, "key1", "value1")
-assert (s.ok())
+db.put("key1", "value1")
 
-opts = pyvidardb.ReadOptions()
-blob = db.get(opts, "key1")
-print(blob.data)
-print(blob.status.ok())
+value = db.get("key1")
+assert value == "value1"
 
-opts = pyvidardb.WriteOptions()
-s = db.delete(opts, "key1")
-assert(s.ok())
+key_not_exist = db.get("key2")
+assert key_not_exist is None
+
+db.delete("key1")
 
 db.close()

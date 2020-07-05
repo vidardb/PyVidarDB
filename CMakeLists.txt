@@ -12,5 +12,5 @@ include_directories(dependencies/vidardb)
 include_directories(dependencies/vidardb/include)
 add_subdirectory(dependencies/vidardb)
 
-pybind11_add_module(pyvidardb ${SOURCE_DIR}/pyvidardb.cpp ${SOURCE_DIR}/db.cpp ${SOURCE_DIR}/options.cpp ${SOURCE_DIR}/slice.cpp ${SOURCE_DIR}/status.cpp)
+pybind11_add_module(pyvidardb ${SOURCE_DIR}/pyvidardb.cpp ${SOURCE_DIR}/db.cpp ${SOURCE_DIR}/options.cpp)
 target_link_libraries(pyvidardb PRIVATE vidardb)
