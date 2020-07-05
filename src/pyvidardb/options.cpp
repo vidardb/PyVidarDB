@@ -1,5 +1,5 @@
-#include "pyvidardb.hpp"
 #include <pybind11/pybind11.h>
+#include "pyvidardb.hpp"
 
 namespace py = pybind11;
 
