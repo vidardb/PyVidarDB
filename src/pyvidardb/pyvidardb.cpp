@@ -20,7 +20,7 @@ void py_DB::Close() {
   db_ptr = nullptr;
 }
 
-void py_DB::Open(const Options &options, const std::string &name) {
+void py_DB::Open(const std::string &name, const Options &options) {
   if (db_ptr != nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }

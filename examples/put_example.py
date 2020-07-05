@@ -6,7 +6,7 @@ db = pyvidardb.DB()
 opts = pyvidardb.Options()
 opts.write_buffer_size = 512 * 1024 * 1024
 
-db.open(opts, "./put_example")
+db.open("./put_example", opts)
 
 start = time.time()
 for each in range(1000000):

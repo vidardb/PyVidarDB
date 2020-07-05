@@ -5,7 +5,7 @@ db = pyvidardb.DB()
 opts = pyvidardb.Options()
 opts.write_buffer_size = 512 * 1024 * 1024
 
-db.open(opts, "./simple_example")
+db.open("./simple_example", opts)
 
 db.put("key1", "value1")
 
