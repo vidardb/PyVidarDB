@@ -43,13 +43,12 @@ class CMakeBuild(build_ext):
 
         subprocess.check_call(["cmake", ext.source_dir] + cmake_args,
                               cwd=self.build_temp)
-        print(cmake_args)
         subprocess.check_call(["cmake", "--build", "."] + build_args,
                               cwd=self.build_temp)
 
 
 setup(
-    name="pyvidardb",
+    name="PyVidarDB",
     version="0.0.1",
     author="VidarDB Team",
     author_email="info@vidardb.com",
