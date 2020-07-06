@@ -4,7 +4,8 @@ import time
 db = pyvidardb.DB()
 
 opts = pyvidardb.Options()
-opts.write_buffer_size = 512 * 1024 * 1024
+# Default size now is 512M
+# opts.write_buffer_size = 512 * 1024 * 1024
 
 db.open("./put_example", opts)
 
