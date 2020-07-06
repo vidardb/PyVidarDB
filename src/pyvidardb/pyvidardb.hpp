@@ -23,3 +23,7 @@ class py_DB {
 };
 
 void report_error_if_necessary(Status status);
+
+void init_db(py::module &);
+
+void init_option(py::module &);
