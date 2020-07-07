@@ -14,8 +14,6 @@ jobs:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
-        Python34:
-          python.version: '3.4'
         Python35:
           python.version: '3.5'
         Python36:
@@ -34,6 +32,10 @@ jobs:
           sudo apt install zlib1g-dev libbz2-dev
           sudo apt install libgflags-dev liblz4-dev
         displayName: 'Install dependencies'
+      - script: |
+          git submodule init
+          git submodule update
+        displayName: 'Clone submodules'
       - script: |
           python setup.py install
         displayName: 'Install PyVidarDB'
