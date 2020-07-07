@@ -1,19 +1,42 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+  branches:
+    include:
+      - '*'
+pr:
+  branches:
+    include:
+      - '*'
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+jobs:
+  - job:
+    displayName: 'Test with multiple Python versions'
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      matrix:
+        Python34:
+          python.version: '3.4'
+        Python35:
+          python.version: '3.5'
+        Python36:
+          python.version: '3.6'
+        Python37:
+          python.version: '3.7'
+        Python38:
+          python.version: '3.8'
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '$(python.version)'
+      - script: |
+          sudo apt update
+          sudo apt install build-essential libsnappy-dev
+          sudo apt install zlib1g-dev libbz2-dev
+          sudo apt install libgflags-dev liblz4-dev
+        displayName: 'Install dependencies'
+      - script: |
+          python setup.py install
+        displayName: 'Install PyVidarDB'
+      - script: |
+          python example/simple_example.py
+        displayName: 'Run simple example'
