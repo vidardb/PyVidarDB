@@ -15,5 +15,6 @@ void init_db(py::module &m) {
            "Get the value of the provided key, will return None if there is no "
            "such key in the database.")
       .def("delete", &py_DB::Delete, "Remove the 'key' from the database.")
+      .def("compact", &py_DB::Compact, "Compact the data manually.")
       .def("close", &py_DB::Close, "Close the database.");
 }

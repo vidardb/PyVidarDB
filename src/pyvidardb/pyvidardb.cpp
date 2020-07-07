@@ -60,6 +60,11 @@ void py_DB::Delete(const std::string &key) {
   report_error_if_necessary(st);
 }
 
+void py_DB::Compact() {
+  Status st = db_ptr->CompactRange(CompactRangeOptions(), nullptr, nullptr);
+  report_error_if_necessary(st);
+}
+
 void report_error_if_necessary(Status status) {
   if (!status.ok()) {
     throw std::runtime_error(status.ToString());

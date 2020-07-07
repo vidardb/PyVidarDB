@@ -15,6 +15,7 @@ class py_DB {
   void Put(const std::string &key, const std::string &value);
   py::object Get(const std::string &key);
   void Delete(const std::string &key);
+  void Compact();
   void Close();
   ~py_DB();
 

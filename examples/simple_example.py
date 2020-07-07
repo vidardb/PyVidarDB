@@ -16,6 +16,8 @@ assert value == "value1"
 key_not_exist = db.get("key2")
 assert key_not_exist is None
 
+db.compact()
+
 db.delete("key1")
 
 db.close()
