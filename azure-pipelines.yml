@@ -40,5 +40,5 @@ jobs:
           python setup.py install
         displayName: 'Install PyVidarDB'
       - script: |
-          python example/simple_example.py
+          python examples/simple_example.py
         displayName: 'Run simple example'
