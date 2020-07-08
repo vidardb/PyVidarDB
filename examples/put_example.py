@@ -16,6 +16,6 @@ for each in range(1000000):
     print(each)
     db.put(a, b)
 end = time.time()
-print("Running time: " + str(end-start))
+print("Running time: " + str(end - start))
 
 db.close()
