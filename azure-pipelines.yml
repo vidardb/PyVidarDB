@@ -10,8 +10,6 @@ pr:
 jobs:
   - job:
     displayName: 'Test with multiple Python versions'
-    pool:
-      vmImage: 'ubuntu-latest'
     strategy:
       matrix:
         Python35:
@@ -22,6 +20,21 @@ jobs:
           python.version: '3.7'
         Python38:
           python.version: '3.8'
+        Ubuntu1604:
+          imageName: 'ubuntu-16.04'
+        Ubuntu1804:
+          imageName: 'ubuntu-18.04'
+        Mac1014:
+          imageName: 'macos-10.14'
+        Mac1015:
+          imageName: 'macos-10.15'
+    # Uncomment when VidarDB supports Windows
+    #        Windows2019:
+    #          imageName: 'windows-2019'
+    #        Windows2016:
+    #          imageName: 'vs2017-win2016'
+    pool:
+      vmImage: $(imageName)
     steps:
       - task: UsePythonVersion@0
         inputs:
