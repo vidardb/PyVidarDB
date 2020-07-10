@@ -8,7 +8,7 @@ pr:
       - '*'
 
 jobs:
-  - job:
+  - job: build
     displayName: 'VidarDB Azure Pipelines CI'
     strategy:
       matrix:
