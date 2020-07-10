@@ -62,7 +62,9 @@ jobs:
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'))
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
+          xcode-select --install
           brew install snappy
+          brew tap homebrew/versions; brew install gcc48 --use-llvm
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
