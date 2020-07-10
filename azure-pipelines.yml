@@ -63,7 +63,7 @@ jobs:
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
           brew install snappy
-          brew install gcc48
+          brew install gcc
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
