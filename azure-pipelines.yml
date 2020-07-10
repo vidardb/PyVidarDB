@@ -58,11 +58,11 @@ jobs:
       - script: |
           sudo apt update
           sudo apt install build-essential libsnappy-dev
-        condition: startsWith(succeeded(), eq('$(imageName)', 'Linux'))
+        condition: and(succeeded(), startsWith('$(imageName)', 'Linux'))
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
           brew install snappy
-        condition: startsWith(succeeded(), eq('$(imageName)', 'MacOS'))
+        condition: and(succeeded(), startsWith('$(imageName)', 'MacOS'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
           git submodule init
