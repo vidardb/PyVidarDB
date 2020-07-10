@@ -11,8 +11,8 @@ jobs:
   - job: build
     displayName: 'VidarDB Azure Pipelines CI'
     variables:
-      CC: gcc-7
-      CXX: g++-7
+      CC: gcc-8
+      CXX: g++-8
     strategy:
       matrix:
 #        Linux_Python35:
@@ -61,11 +61,11 @@ jobs:
       - script: |
           sudo apt update
           sudo apt install build-essential libsnappy-dev
-          echo $(imageName)
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'))
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
           brew install snappy
+
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
