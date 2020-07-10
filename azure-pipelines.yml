@@ -12,18 +12,18 @@ jobs:
     displayName: 'VidarDB Azure Pipelines CI'
     strategy:
       matrix:
-        Linux_Python35:
-          imageName: 'ubuntu-latest'
-          python.version: '3.5'
-        Linux_Python36:
-          imageName: 'ubuntu-latest'
-          python.version: '3.6'
-        Linux_Python37:
-          imageName: 'ubuntu-latest'
-          python.version: '3.7'
-        Linux_Python38:
-          imageName: 'ubuntu-latest'
-          python.version: '3.8'
+#        Linux_Python35:
+#          imageName: 'ubuntu-latest'
+#          python.version: '3.5'
+#        Linux_Python36:
+#          imageName: 'ubuntu-latest'
+#          python.version: '3.6'
+#        Linux_Python37:
+#          imageName: 'ubuntu-latest'
+#          python.version: '3.7'
+#        Linux_Python38:
+#          imageName: 'ubuntu-latest'
+#          python.version: '3.8'
         MacOS_Python35:
           imageName: 'macos-latest'
           python.version: '3.5'
@@ -62,9 +62,8 @@ jobs:
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'))
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
-          xcode-select --install
           brew install snappy
-          brew tap homebrew/versions; brew install gcc48 --use-llvm
+          brew install gcc48
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
