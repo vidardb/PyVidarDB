@@ -9,7 +9,7 @@ pr:
 
 jobs:
   - job:
-    displayName: 'Test with multiple Python versions'
+    displayName: 'VidarDB Azure Pipelines CI'
     strategy:
       matrix:
         Linux_Python35:
@@ -58,9 +58,12 @@ jobs:
       - script: |
           sudo apt update
           sudo apt install build-essential libsnappy-dev
-          sudo apt install zlib1g-dev libbz2-dev
-          sudo apt install libgflags-dev liblz4-dev
-        displayName: 'Install dependencies'
+          condition: startsWith(succeeded(), eq('$(imageName)', 'Linux'))
+        displayName: 'Install dependencies (Ubuntu)'
+      - script: |
+          brew install snappy
+          condition: startsWith(succeeded(), eq('$(imageName)', 'MacOS'))
+        displayName: 'Install dependencies (MacOS)'
       - script: |
           git submodule init
           git submodule update
