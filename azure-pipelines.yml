@@ -65,7 +65,7 @@ jobs:
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
           brew install snappy
-          brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/gcc%407.rb
+          brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/gcc@7.rb
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
