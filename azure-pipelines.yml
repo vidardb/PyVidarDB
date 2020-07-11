@@ -10,23 +10,20 @@ pr:
 jobs:
   - job: build
     displayName: 'VidarDB Azure Pipelines CI'
-#    variables:
-#      CC: gcc-7
-#      CXX: g++-7
     strategy:
       matrix:
-#        Linux_Python35:
-#          imageName: 'ubuntu-latest'
-#          python.version: '3.5'
-#        Linux_Python36:
-#          imageName: 'ubuntu-latest'
-#          python.version: '3.6'
-#        Linux_Python37:
-#          imageName: 'ubuntu-latest'
-#          python.version: '3.7'
-#        Linux_Python38:
-#          imageName: 'ubuntu-latest'
-#          python.version: '3.8'
+        Linux_Python35:
+          imageName: 'ubuntu-latest'
+          python.version: '3.5'
+        Linux_Python36:
+          imageName: 'ubuntu-latest'
+          python.version: '3.6'
+        Linux_Python37:
+          imageName: 'ubuntu-latest'
+          python.version: '3.7'
+        Linux_Python38:
+          imageName: 'ubuntu-latest'
+          python.version: '3.8'
         MacOS_Python35:
           imageName: 'macos-latest'
           python.version: '3.5'
@@ -65,7 +62,6 @@ jobs:
         displayName: 'Install dependencies (Ubuntu)'
       - script: |
           brew install snappy
-#          brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/gcc@7.rb
         condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
         displayName: 'Install dependencies (MacOS)'
       - script: |
