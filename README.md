@@ -7,7 +7,9 @@ of [twmht/python-rocksdb](https://github.com/twmht/python-rocksdb/tree/pybind11)
 
 ## Use PyVidarDB
 
-Tested with Python3.6 and Ubuntu 18.04.
+PyVidarDB currently supports Python3.5, Python3.6, Python3.7, and Python3.8.
+
+For Ubuntu users:
 
 ```bash
 sudo apt-get install git python3-pip build-essential cmake libsnappy-dev
@@ -17,4 +19,29 @@ pip install ./PyVidarDB
 
 ## Usage
 
-See [simple_example.py](examples/simple_example.py) for the basic usage.
+```python
+import pyvidardb
+
+db = pyvidardb.DB()
+
+opts = pyvidardb.Options()
+
+# Open the database, will create one if not exist.
+db.open("/path/to/db", opts)
+
+# Put a map from 'key1' to 'value1' into the database.
+db.put("key1", "value1")
+
+# Get the value of the provided key, will return None if there is no such key in the database.
+value = db.get("key1")
+assert value == "value1"
+
+key_not_exist = db.get("key2")
+assert key_not_exist is None
+
+# Remove 'key1' from the database.
+db.delete("key1")
+
+# Close the database.
+db.close()
+```
