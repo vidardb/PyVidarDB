@@ -8,20 +8,49 @@ pr:
       - '*'
 
 jobs:
-  - job:
-    displayName: 'Test with multiple Python versions'
-    pool:
-      vmImage: 'ubuntu-latest'
+  - job: build
+    displayName: 'VidarDB Azure Pipelines CI'
     strategy:
       matrix:
-        Python35:
+        Linux_Python35:
+          imageName: 'ubuntu-latest'
           python.version: '3.5'
-        Python36:
+        Linux_Python36:
+          imageName: 'ubuntu-latest'
           python.version: '3.6'
-        Python37:
+        Linux_Python37:
+          imageName: 'ubuntu-latest'
           python.version: '3.7'
-        Python38:
+        Linux_Python38:
+          imageName: 'ubuntu-latest'
           python.version: '3.8'
+        MacOS_Python35:
+          imageName: 'macos-latest'
+          python.version: '3.5'
+        MacOS_Python36:
+          imageName: 'macos-latest'
+          python.version: '3.6'
+        MacOS_Python37:
+          imageName: 'macos-latest'
+          python.version: '3.7'
+        MacOS_Python38:
+          imageName: 'macos-latest'
+          python.version: '3.8'
+    # Uncomment when VidarDB supports Windows
+    #        Windows_Python35:
+    #          imageName: 'windows-latest'
+    #          python.version: '3.5'
+    #        Windows_Python36:
+    #          imageName: 'windows-latest'
+    #          python.version: '3.6'
+    #        Windows_Python37:
+    #          imageName: 'windows-latest'
+    #          python.version: '3.7'
+    #        Windows_Python38:
+    #          imageName: 'windows-latest'
+    #          python.version: '3.8'
+    pool:
+      vmImage: $(imageName)
     steps:
       - task: UsePythonVersion@0
         inputs:
@@ -29,9 +58,12 @@ jobs:
       - script: |
           sudo apt update
           sudo apt install build-essential libsnappy-dev
-          sudo apt install zlib1g-dev libbz2-dev
-          sudo apt install libgflags-dev liblz4-dev
-        displayName: 'Install dependencies'
+        condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Linux'))
+        displayName: 'Install dependencies (Ubuntu)'
+      - script: |
+          brew install snappy
+        condition: and(succeeded(), startsWith(variables['Agent.OS'], 'Darwin'))
+        displayName: 'Install dependencies (MacOS)'
       - script: |
           git submodule init
           git submodule update
