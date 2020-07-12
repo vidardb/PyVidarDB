@@ -12,7 +12,7 @@ PyVidarDB currently supports Python3.5, Python3.6, Python3.7, and Python3.8.
 For Ubuntu users:
 
 ```bash
-sudo apt-get install git python3-pip build-essential cmake libsnappy-dev
+sudo apt-get install git python3-pip build-essential cmake
 git clone --recursive https://github.com/vidardb/PyVidarDB.git
 pip install ./PyVidarDB
 ```
