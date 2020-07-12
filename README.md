@@ -27,7 +27,7 @@ db = pyvidardb.DB()
 opts = pyvidardb.Options()
 
 # Open the database, will create one if not exist.
-db.open("/path/to/db", opts)
+db.open("./hello_world", opts)
 
 # Put a map from 'key1' to 'value1' into the database.
 db.put("key1", "value1")
@@ -36,8 +36,9 @@ db.put("key1", "value1")
 value = db.get("key1")
 assert value == "value1"
 
-key_not_exist = db.get("key2")
-assert key_not_exist is None
+# 'key2' does not exist in the databse. So we will get None here.
+value = db.get("key2")
+assert value is None
 
 # Remove 'key1' from the database.
 db.delete("key1")
