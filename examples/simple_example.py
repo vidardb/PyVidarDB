@@ -11,7 +11,7 @@ db.open("./simple_example", opts)
 db.put("key1", "value1")
 
 value = db.get("key1")
-assert value == "value1"
+assert value == b"value1"
 
 key_not_exist = db.get("key2")
 assert key_not_exist is None

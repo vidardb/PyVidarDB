@@ -48,7 +48,7 @@ py::object py_DB::Get(const std::string &key) {
   } else {
     report_error_if_necessary(st);
   }
-  return py::str(value);
+  return py::bytes(value);
 }
 
 void py_DB::Delete(const std::string &key) {

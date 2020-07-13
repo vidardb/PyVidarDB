@@ -34,9 +34,9 @@ db.put("key1", "value1")
 
 # Get the value of the provided key, will return None if there is no such key in the database.
 value = db.get("key1")
-assert value == "value1"
+assert value == b"value1"
 
-# 'key2' does not exist in the databse. So we will get None here.
+# 'key2' does not exist in the database. So we will get None here.
 value = db.get("key2")
 assert value is None
 
