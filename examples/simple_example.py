@@ -2,11 +2,7 @@ import pyvidardb
 
 db = pyvidardb.DB()
 
-opts = pyvidardb.Options()
-# Default size now is 512M
-# opts.write_buffer_size = 512 * 1024 * 1024
-
-db.open("./simple_example", opts)
+db.open("./simple_example")
 
 db.put("key1", "value1")
 

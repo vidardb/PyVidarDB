@@ -73,6 +73,6 @@ void report_error_if_necessary(Status status) {
 
 PYBIND11_MODULE(pyvidardb, m) {
   m.doc() = "Python VidarDB API";
-  init_db(m);
   init_option(m);
+  init_db(m);
 }

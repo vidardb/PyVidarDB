@@ -24,15 +24,22 @@ import pyvidardb
 
 db = pyvidardb.DB()
 
+# opts are optional. This step can be skipped.
 opts = pyvidardb.Options()
+# Set the write buffer size to 1G. The default size in VidarDB is 512M.
+# This step can also be skipped.
+opts.write_buffer_size = 1024 * 1024 * 1024
 
 # Open the database, will create one if not exist.
+# If you want to run VidarDB with the default options, simply write:
+# db.open("./hello_world")
 db.open("./hello_world", opts)
 
 # Put a map from 'key1' to 'value1' into the database.
 db.put("key1", "value1")
 
-# Get the value of the provided key, will return None if there is no such key in the database.
+# Get the value of the provided key (the return type is bytes),
+# will return None if there is no such key in the database.
 value = db.get("key1")
 assert value == b"value1"
 

@@ -8,7 +8,8 @@ void init_db(py::module &m) {
   py::class_<py_DB>(m, "DB")
       .def(py::init<>())
       .def("open", &py_DB::Open,
-           "Open the database, will create one if not exist.")
+           "Open the database, will create one if not exist.", py::arg("name"),
+           py::arg("options") = Options())
       .def("put", &py_DB::Put,
            "Put a map from 'key' to 'value' into the database.")
       .def("get", &py_DB::Get,
