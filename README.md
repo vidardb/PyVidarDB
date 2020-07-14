@@ -14,7 +14,7 @@ For Ubuntu users:
 ```bash
 sudo apt-get install git python3-pip build-essential cmake
 git clone --recursive https://github.com/vidardb/PyVidarDB.git
-pip install ./PyVidarDB
+pip3 install ./PyVidarDB
 ```
 
 ## Usage
