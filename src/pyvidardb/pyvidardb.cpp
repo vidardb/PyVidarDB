@@ -6,11 +6,7 @@ const std::string kDBHasBeenClosed("DB has been closed!");
 
 py_DB::py_DB() : db_ptr(nullptr) {}
 
-py_DB::~py_DB() {
-  if (db_ptr != nullptr) {
-    delete db_ptr;
-  }
-}
+py_DB::~py_DB() { delete db_ptr; }
 
 void py_DB::Close() {
   if (db_ptr == nullptr) {
