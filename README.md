@@ -47,23 +47,27 @@ db = pyvidardb.DB()
 db.open("./hello_world")
 
 # Put a map from 'key1' to 'value1' into the database.
-db.put("key1", "value1")
+db.put(b"key1", b"value1")
 
-# Get the value of the provided key (the return type is bytes),
-# will return None if there is no such key in the database.
-value = db.get("key1")
+# Get the value of the provided key, will return None
+# if there is no such key in the database.
+value = db.get(b"key1")
 assert value == b"value1"
 
 # 'key2' does not exist in the database. So we will get None here.
-value = db.get("key2")
+value = db.get(b"key2")
 assert value is None
 
 # Remove 'key1' from the database.
-db.delete("key1")
+db.delete(b"key1")
 
 # Close the database.
 db.close()
 ```
+
+For `put()`, `get()`, and `delete()`, the passed key and the value's type must
+be `bytes`. The return type of `get()` is also `bytes`. If the provided key does
+not exist in the database, `None` will be returned.
 
 More examples can be found at here: https://github.com/vidardb/PyVidarDB/tree/master/examples 
 

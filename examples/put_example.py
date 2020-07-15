@@ -11,8 +11,8 @@ db.open("./put_example", opts)
 
 start = time.time()
 for each in range(1000000):
-    a = "key{}".format(each)
-    b = "value{}".format(each)
+    a = "key{}".format(each).encode()
+    b = "value{}".format(each).encode()
     print(each)
     db.put(a, b)
 end = time.time()

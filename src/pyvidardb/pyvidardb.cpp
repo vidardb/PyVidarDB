@@ -24,21 +24,24 @@ void py_DB::Open(const std::string &name, const Options &options) {
   report_error_if_necessary(st);
 }
 
-void py_DB::Put(const std::string &key, const std::string &value) {
+void py_DB::Put(const py::bytes &key, const py::bytes &value) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
-  Status st = db_ptr->Put(WriteOptions(), key, value);
+  std::string key_str(key);
+  std::string value_str(value);
+  Status st = db_ptr->Put(WriteOptions(), key_str, value_str);
   report_error_if_necessary(st);
 }
 
-py::object py_DB::Get(const std::string &key) {
+py::object py_DB::Get(const py::bytes &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
+  std::string key_str(key);
   std::string value;
   ReadOptions ro;
-  Status st = db_ptr->Get(ro, key, &value);
+  Status st = db_ptr->Get(ro, key_str, &value);
   if (st.IsNotFound()) {
     return py::none();
   } else {
@@ -47,12 +50,13 @@ py::object py_DB::Get(const std::string &key) {
   return py::bytes(value);
 }
 
-void py_DB::Delete(const std::string &key) {
+void py_DB::Delete(const py::bytes &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
+  std::string key_str(key);
   Status st =
-      db_ptr->Delete(WriteOptions(), db_ptr->DefaultColumnFamily(), key);
+      db_ptr->Delete(WriteOptions(), db_ptr->DefaultColumnFamily(), key_str);
   report_error_if_necessary(st);
 }
 

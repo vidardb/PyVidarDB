@@ -12,9 +12,9 @@ class py_DB {
  public:
   py_DB();
   void Open(const std::string &name, const Options &options);
-  void Put(const std::string &key, const std::string &value);
-  py::object Get(const std::string &key);
-  void Delete(const std::string &key);
+  void Put(const py::bytes &key, const py::bytes &value);
+  py::object Get(const py::bytes &key);
+  void Delete(const py::bytes &key);
   void Compact();
   void Close();
   ~py_DB();

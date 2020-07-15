@@ -9,8 +9,8 @@ opts.write_buffer_size = 4 * 1024 * 1024
 db.open("./compact_example", opts)
 
 for each in range(10000000):
-    a = "key{}".format(each)
-    b = "value{}".format(each)
+    a = "key{}".format(each).encode()
+    b = "value{}".format(each).encode()
     print(each)
     db.put(a, b)
 
@@ -19,7 +19,7 @@ db.compact()
 
 start = time.time()
 for each in range(1000000):
-    a = "key{}".format(each)
+    a = "key{}".format(each).encode()
     db.get(a)
 end = time.time()
 print("Running time: " + str(end - start))
