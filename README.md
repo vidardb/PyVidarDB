@@ -11,13 +11,14 @@ There is no need to have VidarDB installed in advance, PyVidarDB will install it
 
 ### Dependencies
 
-For Ubuntu users:
+For Linux users (Ubuntu as an example):
 
 ```bash
+sudo apt-get update
 sudo apt-get install git python3-pip build-essential cmake
 ```
 
-For MacOS users:
+For MacOS users (Please install [Homebrew](https://brew.sh/) at first):
 
 ```bash
 sudo brew install git python3 cmake
