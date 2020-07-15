@@ -47,6 +47,9 @@ class CMakeBuild(build_ext):
                               cwd=self.build_temp)
 
 
+if sys.version_info < (3, 5):
+    sys.exit('Sorry, Python < 3.5 is not supported by PyVidarDB.')
+
 setup(
     name="PyVidarDB",
     version="0.0.1",
