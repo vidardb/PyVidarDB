@@ -17,6 +17,14 @@ git clone --recursive https://github.com/vidardb/PyVidarDB.git
 pip3 install ./PyVidarDB
 ```
 
+For MacOS users:
+
+```bash
+sudo brew install git python3 cmake
+git clone --recursive https://github.com/vidardb/PyVidarDB
+pip3 install ./PyVidarDB
+```
+
 ## Basic Usage
 
 Here is the basic usage for PyVidarDB:
