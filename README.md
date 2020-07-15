@@ -2,25 +2,34 @@
 
 [![Build Status](https://dev.azure.com/vidardb/PyVidarDB/_apis/build/status/vidardb.PyVidarDB?branchName=master)](https://dev.azure.com/vidardb/PyVidarDB/_build/latest?definitionId=1&branchName=master)
 
-A simple python wrapper for VidarDB. It is built on the earlier work
-of [twmht/python-rocksdb](https://github.com/twmht/python-rocksdb/tree/pybind11).
+A simple python wrapper for [VidarDB](https://github.com/vidardb/vidardb-engine).
 
 ## Use PyVidarDB
 
 PyVidarDB currently supports Python3.5, Python3.6, Python3.7, and Python3.8.
+There is no need to have VidarDB installed in advance, PyVidarDB will install it automatically for you.
+
+### Dependencies
 
 For Ubuntu users:
 
 ```bash
 sudo apt-get install git python3-pip build-essential cmake
-git clone --recursive https://github.com/vidardb/PyVidarDB.git
-pip3 install ./PyVidarDB
 ```
 
 For MacOS users:
 
 ```bash
 sudo brew install git python3 cmake
+```
+
+For Windows users:
+
+We are working on it! Will release soon.
+
+### PyVidarDB Installation
+
+```bash
 git clone --recursive https://github.com/vidardb/PyVidarDB
 pip3 install ./PyVidarDB
 ```
