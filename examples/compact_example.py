@@ -14,7 +14,7 @@ for each in range(10000000):
     print(each)
     db.put(a, b)
 
-# Commit it if you don't need to compact manually.
+# Comment it if you don't need to compact manually.
 db.compact()
 
 start = time.time()
