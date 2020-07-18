@@ -37,8 +37,6 @@ class CMakeBuild(build_ext):
     def build_extension(self, ext):
         ext_dir = os.path.abspath(
             os.path.dirname(self.get_ext_fullpath(ext.name)))
-        if not ext_dir.endswith(os.path.sep):
-            ext_dir += os.path.sep
 
         cmake_args = ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + ext_dir,
                       "-DPYTHON_EXECUTABLE=" + sys.executable]
@@ -54,10 +52,6 @@ class CMakeBuild(build_ext):
         else:
             cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
             build_args += ['--', '-j4']
-
-        env = os.environ.copy()
-        env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
-                                                              self.distribution.get_version())
 
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
