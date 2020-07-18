@@ -8,6 +8,8 @@ namespace py = pybind11;
 
 const std::string kDBHasBeenClosed("DB has been closed!");
 
+const std::string kDBHasBeenOpened("DB has been opened!");
+
 void init_db(py::module &m) {
   py::class_<py_DB>(m, "DB")
       .def(py::init<>())
@@ -29,16 +31,13 @@ py_DB::py_DB() : db_ptr(nullptr) {}
 py_DB::~py_DB() { delete db_ptr; }
 
 void py_DB::Close() {
-  if (db_ptr == nullptr) {
-    throw std::invalid_argument(kDBHasBeenClosed);
-  }
   delete db_ptr;
   db_ptr = nullptr;
 }
 
 void py_DB::Open(const std::string &name, const Options &options) {
   if (db_ptr != nullptr) {
-    throw std::invalid_argument(kDBHasBeenClosed);
+    throw std::invalid_argument(kDBHasBeenOpened);
   }
   Status st = DB::Open(options, name, &db_ptr);
   report_error_if_necessary(st);
