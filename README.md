@@ -33,7 +33,7 @@ We are working on it! Will release soon.
 ### PyVidarDB Installation
 
 ```bash
-git clone --recursive https://github.com/vidardb/PyVidarDB
+git clone --recursive https://github.com/vidardb/PyVidarDB.git
 pip3 install ./PyVidarDB
 ```
 
