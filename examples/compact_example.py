@@ -4,7 +4,7 @@ import time
 db = pyvidardb.DB()
 
 opts = pyvidardb.Options()
-opts.write_buffer_size = 4 * 1024 * 1024
+opts.ram_size = 4 * 1024 * 1024
 
 db.open("./compact_example", opts)
 
