@@ -28,7 +28,7 @@ sudo brew install git python3 cmake
 
 For Windows users:
 
-We are working on it! Will release soon.
+The compiler should support C++11 (at least Visual Studio 2015 update 3).
 
 ### PyVidarDB Installation
 
