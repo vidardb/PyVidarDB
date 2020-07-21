@@ -8,7 +8,7 @@ A simple python wrapper for [VidarDB](https://github.com/vidardb/vidardb-engine)
 
 ## Use PyVidarDB
 
-PyVidarDB currently supports Python3.5, Python3.6, Python3.7, and Python3.8.
+PyVidarDB guarantees to support `Python >= 3.5`.
 There is no need to have VidarDB installed in advance, PyVidarDB will install it automatically for you.
 
 ### Dependencies

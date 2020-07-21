@@ -10,6 +10,9 @@ from distutils.version import LooseVersion
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 
+if sys.version_info < (3, 0):
+    sys.exit('Sorry, Python < 3 is not supported by PyVidarDB.')
+
 
 class CMakeExtension(Extension):
     def __init__(self, name, source_dir=""):
@@ -61,9 +64,6 @@ class CMakeBuild(build_ext):
         subprocess.check_call(["cmake", "--build", "."] + build_args,
                               cwd=self.build_temp)
 
-
-if sys.version_info < (3, 5):
-    sys.exit('Sorry, Python < 3.5 is not supported by PyVidarDB.')
 
 setup(
     name="PyVidarDB",
