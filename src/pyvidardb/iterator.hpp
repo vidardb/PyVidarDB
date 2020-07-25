@@ -15,5 +15,5 @@ class py_Iterator {
   py::bytes value();
 
  private:
-  std::unique_ptr<Iterator> py_iter;
+  Iterator* py_iter;
 };

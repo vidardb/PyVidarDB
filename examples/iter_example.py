@@ -17,4 +17,6 @@ while db_iter.valid():
     print(key, value)
     db_iter.next()
 
+db.deleteIterator(db_iter)
+
 db.close()

@@ -24,6 +24,7 @@ void init_db(py::module &m) {
       .def("delete", &py_DB::Delete, "Remove the 'key' from the database.")
       .def("compact", &py_DB::Compact, "Compact the data manually.")
       .def("iter", &py_DB::NewIterator)
+      .def("deleteIterator", &py_DB::DeleteIterator)
       .def("close", &py_DB::Close, "Close the database.");
 }
 
@@ -35,13 +36,14 @@ void py_DB::Close() {
   delete db_ptr;
   db_ptr = nullptr;
 }
-// py_Iterator*
-std::unique_ptr<py_Iterator> py_DB::NewIterator() {
+
+py_Iterator *py_DB::NewIterator() {
   ReadOptions ro;
-  //  iter_ptr = db_ptr->NewIterator(ro);
-  //  return new py_Iterator(iter_ptr);
-  return std::unique_ptr<py_Iterator>(new py_Iterator(db_ptr->NewIterator(ro)));
+  py_Iterator * = new py_Iterator(db_ptr->NewIterator(ro));
+  return iterator;
 }
+
+void py_DB::DeleteIterator(py_Iterator *iterator) { delete iterator; }
 
 void py_DB::Open(const std::string &name, const Options &options) {
   if (db_ptr != nullptr) {

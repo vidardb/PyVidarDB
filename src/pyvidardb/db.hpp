@@ -15,7 +15,8 @@ class py_DB {
   void Delete(const py::bytes &key);
   void Compact();
   void Close();
-  std::unique_ptr<py_Iterator> NewIterator();
+  void DeleteIterator(py_Iterator *iterator);
+  py_Iterator *NewIterator();
   ~py_DB();
 
  private:
