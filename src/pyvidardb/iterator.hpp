@@ -1,11 +1,13 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/iterator.h>
-
+#include <vidardb/db.h>
 using namespace vidardb;
+
 namespace py = pybind11;
 
 class py_Iterator {
  public:
+  py_Iterator() {}
   py_Iterator(Iterator* iter);
   ~py_Iterator();
   void Next();
@@ -14,6 +16,6 @@ class py_Iterator {
   py::bytes key();
   py::bytes value();
 
- private:
+//  private:
   Iterator* py_iter;
 };

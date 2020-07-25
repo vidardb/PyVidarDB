@@ -6,7 +6,7 @@ namespace py = pybind11;
 
 void init_iterator(py::module& m) {
   py::class_<py_Iterator>(m, "py_Iterator")
-      .def(py::init<Iterator*>())
+      .def(py::init<>())
       .def("seek", &py_Iterator::SeekToFirst)
       .def("valid", &py_Iterator::Valid)
       .def("next", &py_Iterator::Next)
@@ -14,9 +14,11 @@ void init_iterator(py::module& m) {
       .def("value", &py_Iterator::value);
 }
 
-py_Iterator::py_Iterator(Iterator* iter) : py_iter(iter) {}
+py_Iterator::py_Iterator(Iterator* iter) {
+  py_iter = iter;
+}
 
-py_Iterator::~py_Iterator() {}
+py_Iterator::~py_Iterator() {/*printf("\n!!!\n");*/}
 
 void py_Iterator::Next() { py_iter->Next(); }
 

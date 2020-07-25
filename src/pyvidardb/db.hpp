@@ -15,12 +15,12 @@ class py_DB {
   void Delete(const py::bytes &key);
   void Compact();
   void Close();
-  void DeleteIterator(py_Iterator *iterator);
-  py_Iterator *NewIterator();
+  py_Iterator NewIterator();
   ~py_DB();
 
  private:
   DB *db_ptr;
+  std::vector<py_Iterator> iters;
 };
 
 void report_error_if_necessary(Status status);
