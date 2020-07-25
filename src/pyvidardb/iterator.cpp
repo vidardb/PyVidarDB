@@ -16,7 +16,7 @@ void init_iterator(py::module& m) {
 
 py_Iterator::py_Iterator(Iterator* iter) : py_iter(iter) {}
 
-py_Iterator::~py_Iterator() { delete py_iter; }
+py_Iterator::~py_Iterator() {}
 
 void py_Iterator::Next() { py_iter->Next(); }
 

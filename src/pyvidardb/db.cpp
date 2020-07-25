@@ -39,8 +39,7 @@ void py_DB::Close() {
 
 py_Iterator *py_DB::NewIterator() {
   ReadOptions ro;
-  py_Iterator * = new py_Iterator(db_ptr->NewIterator(ro));
-  return iterator;
+  return new py_Iterator(db_ptr->NewIterator(ro));
 }
 
 void py_DB::DeleteIterator(py_Iterator *iterator) { delete iterator; }
