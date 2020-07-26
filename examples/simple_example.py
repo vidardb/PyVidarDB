@@ -14,6 +14,14 @@ assert key_not_exist is None
 
 db.compact()
 
+db_iter = db.iter()
+
+while db_iter.valid():
+    key, value = db_iter.key(), db_iter.value()
+    assert key == b"key1"
+    assert value == b"value1"
+    db_iter.next()
+
 db.delete(b"key1")
 
 db.close()
