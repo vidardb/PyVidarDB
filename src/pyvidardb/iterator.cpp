@@ -7,7 +7,6 @@ namespace py = pybind11;
 void init_iterator(py::module& m) {
   py::class_<py_Iterator>(m, "py_Iterator")
       .def(py::init<>())
-      .def("seek", &py_Iterator::SeekToFirst)
       .def("valid", &py_Iterator::Valid)
       .def("next", &py_Iterator::Next)
       .def("key", &py_Iterator::key)
@@ -16,9 +15,10 @@ void init_iterator(py::module& m) {
 
 py_Iterator::py_Iterator(Iterator* iter) {
   py_iter = iter;
+  py_iter->SeekToFirst();
 }
 
-py_Iterator::~py_Iterator() {/*printf("\n!!!\n");*/}
+py_Iterator::~py_Iterator() {}
 
 void py_Iterator::Next() { py_iter->Next(); }
 
@@ -29,5 +29,3 @@ py::bytes py_Iterator::key() { return py::bytes(py_iter->key().ToString()); }
 py::bytes py_Iterator::value() {
   return py::bytes(py_iter->value().ToString());
 }
-
-void py_Iterator::SeekToFirst() { py_iter->SeekToFirst(); }

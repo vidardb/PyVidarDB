@@ -23,21 +23,20 @@ void init_db(py::module &m) {
            "such key in the database.")
       .def("delete", &py_DB::Delete, "Remove the 'key' from the database.")
       .def("compact", &py_DB::Compact, "Compact the data manually.")
-      .def("iter", &py_DB::NewIterator)
+      .def("iter", &py_DB::NewIterator, "Return an iterator from the database.")
       .def("close", &py_DB::Close, "Close the database.");
 }
 
 py_DB::py_DB() : db_ptr(nullptr) {}
 
-py_DB::~py_DB() { 
-  // printf("\n?????????\n"); 
+py_DB::~py_DB() {
   if (db_ptr) {
     for (auto i : iters) {
       delete i.py_iter;
       i.py_iter = nullptr;
     }
   }
-  delete db_ptr; 
+  delete db_ptr;
 }
 
 void py_DB::Close() {

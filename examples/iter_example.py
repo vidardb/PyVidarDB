@@ -10,7 +10,6 @@ for each in range(10):
     db.put(a, b)
 
 db_iter = db.iter()
-db_iter.seek()
 
 while db_iter.valid():
     key, value = db_iter.key(), db_iter.value()
