@@ -12,7 +12,6 @@ class py_Iterator {
   ~py_Iterator();
   void Next();
   bool Valid();
-  void SeekToFirst();
   py::bytes key();
   py::bytes value();
 
