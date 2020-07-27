@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/db.h>
 #include <vidardb/status.h>
+#include <iterator.hpp>
 
 using namespace vidardb;
 namespace py = pybind11;
@@ -14,10 +15,12 @@ class py_DB {
   void Delete(const py::bytes &key);
   void Compact();
   void Close();
+  py_Iterator NewIterator();
   ~py_DB();
 
  private:
   DB *db_ptr;
+  std::vector<py_Iterator> iters;
 };
 
 void report_error_if_necessary(Status status);
