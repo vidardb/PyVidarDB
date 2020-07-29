@@ -1,0 +1,8 @@
+include ./ CMakeLists.txt
+include ./ setup.py
+include ./ LICENSE
+include ./ .gitmodules
+
+recursive-include dependencies *
+
+graft src
