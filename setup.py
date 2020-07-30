@@ -98,7 +98,7 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">3",
+    python_requires=">=3.5",
     packages=find_packages("src"),
     package_dir={"": "src"},
     ext_modules=[CMakeExtension("pyvidardb/pyvidardb")],
