@@ -1,8 +1,8 @@
 # PyVidarDB
 
 [![Build Status](https://dev.azure.com/vidardb/PyVidarDB/_apis/build/status/vidardb.PyVidarDB?branchName=master)](https://dev.azure.com/vidardb/PyVidarDB/_build/latest?definitionId=1&branchName=master)
-![Supported Python Version](https://img.shields.io/badge/python-%3E%3D%20v3.5-blue)
-
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyvidardb)
+![PyPI](https://img.shields.io/pypi/v/pyvidardb)
 
 A simple python wrapper for [VidarDB](https://github.com/vidardb/vidardb-engine).
 
