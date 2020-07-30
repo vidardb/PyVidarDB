@@ -32,6 +32,14 @@ The compiler should support C++11 (at least Visual Studio 2015 update 3).
 
 ### PyVidarDB Installation
 
+From PyPI:
+
+```bash
+pip3 install PyVidarDB
+```
+
+From Github:
+
 ```bash
 git clone --recursive https://github.com/vidardb/PyVidarDB.git
 pip3 install ./PyVidarDB
