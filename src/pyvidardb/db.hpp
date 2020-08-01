@@ -1,7 +1,5 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/db.h>
-#include <vidardb/options.h>
-#include <vidardb/status.h>
 #include <iterator.hpp>
 
 using namespace vidardb;

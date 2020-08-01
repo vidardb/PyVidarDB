@@ -1,8 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/db.h>
-#include <vidardb/iterator.h>
-using namespace vidardb;
 
+using namespace vidardb;
 namespace py = pybind11;
 
 class py_Iterator {

@@ -77,7 +77,7 @@ void py_DB::Put(const py::bytes &key, const py::bytes &value) {
   }
   std::string key_str(key);
   std::vector<std::string> str_val{std::string(value)};
-  std::vector<vidardb::Slice> slice_val(str_val.begin(), str_val.end());
+  std::vector<Slice> slice_val(str_val.begin(), str_val.end());
   Status st =
       db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(slice_val));
   report_error_if_necessary(st);
@@ -111,7 +111,7 @@ py::object py_DB::Get(const py::bytes &key) {
   } else {
     report_error_if_necessary(st);
   }
-  std::vector<vidardb::Slice> vals(opts.splitter->Split(value));
+  std::vector<Slice> vals(opts.splitter->Split(value));
   std::vector<std::string> str_vals;
   for (auto val : vals) {
     str_vals.push_back(val.ToString());

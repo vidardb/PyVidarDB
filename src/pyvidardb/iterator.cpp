@@ -1,8 +1,8 @@
 #include "iterator.hpp"
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <iostream>
-#include "pyvidardb.hpp"
 
 namespace py = pybind11;
 
