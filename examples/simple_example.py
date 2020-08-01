@@ -10,7 +10,7 @@ value = db.get(b"key1")
 assert value == [b"value1"]
 
 key_not_exist = db.get(b"key2")
-assert key_not_exist == []
+assert key_not_exist is None
 
 db.compact()
 

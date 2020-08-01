@@ -13,7 +13,7 @@ class py_DB {
   void Open(const std::string &name, const Options &options);
   void Put(const py::bytes &key, const py::bytes &value);
   void Put(const py::bytes &key, const std::vector<py::bytes> &values);
-  std::vector<py::bytes> Get(const py::bytes &key);
+  py::object Get(const py::bytes &key);
   void Delete(const py::bytes &key);
   void Compact();
   void Close();

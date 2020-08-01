@@ -96,7 +96,7 @@ void py_DB::Put(const py::bytes &key, const std::vector<py::bytes> &values) {
   report_error_if_necessary(st);
 }
 
-std::vector<py::bytes> py_DB::Get(const py::bytes &key) {
+py::object py_DB::Get(const py::bytes &key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
@@ -105,7 +105,7 @@ std::vector<py::bytes> py_DB::Get(const py::bytes &key) {
   ReadOptions ro;
   Status st = db_ptr->Get(ro, key_str, &value);
   if (st.IsNotFound()) {
-    return std::vector<py::bytes>{};
+    return py::none();
   } else {
     report_error_if_necessary(st);
   }
@@ -118,7 +118,7 @@ std::vector<py::bytes> py_DB::Get(const py::bytes &key) {
   for (auto val : str_vals) {
     bytes_vals.push_back(py::bytes(val));
   }
-  return bytes_vals;
+  return py::cast(bytes_vals);
 }
 
 void py_DB::Delete(const py::bytes &key) {
