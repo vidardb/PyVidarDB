@@ -17,7 +17,6 @@ void init_iterator(py::module& m) {
 
 py_Iterator::py_Iterator(Iterator* iter, std::shared_ptr<Splitter> splitter) {
   py_iter = iter;
-  //  py_opts = options;
   py_splitter = splitter;
   py_iter->SeekToFirst();
 }
