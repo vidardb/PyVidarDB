@@ -1,5 +1,7 @@
 #include "iterator.hpp"
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <iostream>
 #include "pyvidardb.hpp"
 
 namespace py = pybind11;
@@ -13,8 +15,10 @@ void init_iterator(py::module& m) {
       .def("value", &py_Iterator::value);
 }
 
-py_Iterator::py_Iterator(Iterator* iter) {
+py_Iterator::py_Iterator(Iterator* iter, std::shared_ptr<Splitter> splitter) {
   py_iter = iter;
+  //  py_opts = options;
+  py_splitter = splitter;
   py_iter->SeekToFirst();
 }
 
@@ -26,6 +30,12 @@ bool py_Iterator::Valid() { return py_iter->Valid(); }
 
 py::bytes py_Iterator::key() { return py::bytes(py_iter->key().ToString()); }
 
-py::bytes py_Iterator::value() {
-  return py::bytes(py_iter->value().ToString());
+std::vector<py::bytes> py_Iterator::value() {
+  std::vector<Slice> vals(py_splitter->Split(py_iter->value()));
+  std::vector<std::string> str_vals;
+  for (auto val : vals) {
+    str_vals.push_back(val.ToString());
+  }
+  std::vector<py::bytes> bytes_vals(str_vals.begin(), str_vals.end());
+  return bytes_vals;
 }

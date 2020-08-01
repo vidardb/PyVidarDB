@@ -57,7 +57,7 @@ void py_DB::Close() {
 
 py_Iterator py_DB::NewIterator() {
   ReadOptions ro;
-  iters.push_back(py_Iterator(db_ptr->NewIterator(ro)));
+  iters.push_back(py_Iterator(db_ptr->NewIterator(ro), opts.splitter));
   return iters.back();
 }
 
@@ -76,9 +76,10 @@ void py_DB::Put(const py::bytes &key, const py::bytes &value) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
   std::string key_str(key);
-  std::vector<std::string> v{std::string(value)};
-  std::vector<vidardb::Slice> vv(v.begin(), v.end());
-  Status st = db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(vv));
+  std::vector<std::string> str_val{std::string(value)};
+  std::vector<vidardb::Slice> slice_val(str_val.begin(), str_val.end());
+  Status st =
+      db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(slice_val));
   report_error_if_necessary(st);
 }
 
@@ -87,12 +88,13 @@ void py_DB::Put(const py::bytes &key, const std::vector<py::bytes> &values) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
   std::string key_str(key);
-  std::vector<std::string> v;
+  std::vector<std::string> str_vals;
   for (auto value : values) {
-    v.push_back(std::string(value));
+    str_vals.push_back(std::string(value));
   }
-  std::vector<Slice> vv(v.begin(), v.end());
-  Status st = db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(vv));
+  std::vector<Slice> slice_vals(str_vals.begin(), str_vals.end());
+  Status st =
+      db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(slice_vals));
   report_error_if_necessary(st);
 }
 
@@ -114,10 +116,7 @@ py::object py_DB::Get(const py::bytes &key) {
   for (auto val : vals) {
     str_vals.push_back(val.ToString());
   }
-  std::vector<py::bytes> bytes_vals;
-  for (auto val : str_vals) {
-    bytes_vals.push_back(py::bytes(val));
-  }
+  std::vector<py::bytes> bytes_vals(str_vals.begin(), str_vals.end());
   return py::cast(bytes_vals);
 }
 

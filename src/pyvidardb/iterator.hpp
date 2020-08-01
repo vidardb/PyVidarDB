@@ -8,12 +8,13 @@ namespace py = pybind11;
 class py_Iterator {
  public:
   py_Iterator() {}
-  py_Iterator(Iterator* iter);
+  py_Iterator(Iterator* iter, std::shared_ptr<Splitter> splitter);
   ~py_Iterator();
   void Next();
   bool Valid();
   py::bytes key();
-  py::bytes value();
+  std::vector<py::bytes> value();
 
   Iterator* py_iter;
+  std::shared_ptr<Splitter> py_splitter;
 };
