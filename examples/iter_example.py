@@ -9,6 +9,11 @@ for each in range(10):
     b = "value{}".format(each).encode()
     db.put(a, b)
 
+for each in range(10, 20):
+    a = "key{}".format(each).encode()
+    b = ["value{}".format(each).encode(), "value{}".format(each + 1).encode()]
+    db.put(a, b)
+
 db_iter = db.iter()
 
 while db_iter.valid():
