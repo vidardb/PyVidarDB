@@ -10,6 +10,9 @@ python:
 install:
   - pip install -r dev-requirements.txt
 
+script:
+  - echo "Nothing to do."
+
 deploy:
   provider: pypi
   username: __token__
