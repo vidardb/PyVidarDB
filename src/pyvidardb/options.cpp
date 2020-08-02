@@ -4,7 +4,7 @@
 using namespace vidardb;
 namespace py = pybind11;
 
-void init_option(py::module &m) {
+void init_option(py::module& m) {
   py::class_<DBOptions, std::unique_ptr<DBOptions>>(m, "DBOptions")
       .def(py::init<>())
       .def_readwrite("max_background_parallelism",
