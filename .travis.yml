@@ -7,9 +7,6 @@ branches:
 python:
   - "3.8"
 
-install:
-  - pip install -r dev-requirements.txt
-
 script:
   - echo "Nothing to do."
 
