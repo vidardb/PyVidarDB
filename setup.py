@@ -86,7 +86,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name="PyVidarDB",
-    version="0.0.1",
+    version="0.1.0",
     author="VidarDB Team",
     author_email="info@vidardb.com",
     description="Python Wrapper for VidarDB",
