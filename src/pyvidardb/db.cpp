@@ -10,20 +10,19 @@ const std::string kDBHasBeenClosed("DB has been closed!");
 
 const std::string kDBHasBeenOpened("DB has been opened!");
 
-void init_db(py::module &m) {
+void init_db(py::module& m) {
   py::class_<py_DB>(m, "DB")
       .def(py::init<>())
       .def("open", &py_DB::Open,
            "Open the database, will create one if not exist.", py::arg("name"),
            py::arg("options") = Options())
       .def("put",
-           (void (py_DB::*)(const py::bytes &, const py::bytes &)) & py_DB::Put,
+           (void (py_DB::*)(const py::bytes&, const py::bytes&)) & py_DB::Put,
            "Put a map from key to value into the database.")
-      .def(
-          "put",
-          (void (py_DB::*)(const py::bytes &, const std::vector<py::bytes> &)) &
-              py_DB::Put,
-          "Put a map from key to multiple values into the database.")
+      .def("put",
+           (void (py_DB::*)(const py::bytes&, const std::vector<py::bytes>&)) &
+               py_DB::Put,
+           "Put a map from key to multiple values into the database.")
       .def("get", &py_DB::Get,
            "Get the value of the provided key, will return None if there is no "
            "such key in the database.")
@@ -60,7 +59,7 @@ py_Iterator py_DB::NewIterator() {
   return iters.back();
 }
 
-void py_DB::Open(const std::string &name, const Options &options) {
+void py_DB::Open(const std::string& name, const Options& options) {
   if (db_ptr != nullptr) {
     throw std::invalid_argument(kDBHasBeenOpened);
   }
@@ -70,7 +69,7 @@ void py_DB::Open(const std::string &name, const Options &options) {
   report_error_if_necessary(st);
 }
 
-void py_DB::Put(const py::bytes &key, const py::bytes &value) {
+void py_DB::Put(const py::bytes& key, const py::bytes& value) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
@@ -82,7 +81,7 @@ void py_DB::Put(const py::bytes &key, const py::bytes &value) {
   report_error_if_necessary(st);
 }
 
-void py_DB::Put(const py::bytes &key, const std::vector<py::bytes> &values) {
+void py_DB::Put(const py::bytes& key, const std::vector<py::bytes>& values) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
@@ -97,7 +96,7 @@ void py_DB::Put(const py::bytes &key, const std::vector<py::bytes> &values) {
   report_error_if_necessary(st);
 }
 
-py::object py_DB::Get(const py::bytes &key) {
+py::object py_DB::Get(const py::bytes& key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
@@ -119,7 +118,7 @@ py::object py_DB::Get(const py::bytes &key) {
   return py::cast(bytes_vals);
 }
 
-void py_DB::Delete(const py::bytes &key) {
+void py_DB::Delete(const py::bytes& key) {
   if (db_ptr == nullptr) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
