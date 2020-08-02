@@ -4,8 +4,8 @@
 
 namespace py = pybind11;
 
-void init_db(py::module& );
+void init_db(py::module&);
 
-void init_option(py::module& );
+void init_option(py::module&);
 
-void init_iterator(py::module& );
+void init_iterator(py::module&);
