@@ -1,0 +1,20 @@
+language: python
+
+branches:
+  only:
+    - master
+
+python:
+  - "3.8"
+
+install:
+  - pip install -r dev-requirements.txt
+
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: hkd5x0pyL536d3IZESECyWSaZZfPrlAT2rsem3VzH8uKPfYvVHVy4/6POIo1HWQ2F6oeaDWBR5Uj1NfhHpgccm2zTeI4o+95o+SrBzpF0OljhJCgXn16sAVk6c6seUFPYs2eYf7GZzT6KL+W/kq8DCIjTvqydVMU+IyQTmOFjrI1CFC4hS6V3gSMImNJDTqQO5RwHIGFnfsGcGZ2e3FHPsvqGVKl75dllAdUFAGAQQhLKfMhScmrTbI4HL3AkMm+oZecIkSKm9Q9xDV2x0JgY1YikJznCzm+ItC9FbYqu4PbpDbUByqHeycLZ85+OhYuYGJiVymVOw86urJjZF1e/hPxssFY3Mv5osWDkhsbWITV65cfXnc/SJqa+MU0o7kYzf77pDxrj3Hx1nyPzEP0JF6DoR6r34jzJ/NOfHMgzNhqxNv745RaIaINC1/3gJdbdVOZ91vRWoXMK0caUhsBZILY/eV8rmQFJ0z6RTiwzYS+24MjmrgmRRekvUftyMonY6uchuVbkKExetNtWBWY1rJ2QX8DNXk9pvVFaTX8i0lNcejdyeZbOBLeubujbZpicKwE3rXuGRRF4HZOCAWHSUY5nt0NguXnZQuppwkEyCrDnjt7XMUssMrXM/aF7UD/5k0w7H7QNgFmsPAI77mBmItGyPPU3UTxnZYShXjalcY=
+  skip_existing: true
+  on:
+    tags: true
