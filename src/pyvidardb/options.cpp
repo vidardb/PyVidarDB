@@ -1,6 +1,5 @@
 #include <pybind11/pybind11.h>
 #include <vidardb/options.h>
-#include "pyvidardb.hpp"
 
 using namespace vidardb;
 namespace py = pybind11;

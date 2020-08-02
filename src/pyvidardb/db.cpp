@@ -1,6 +1,7 @@
 #include "db.hpp"
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include <iostream>
 #include <stdexcept>
 
@@ -16,12 +17,18 @@ void init_db(py::module &m) {
       .def("open", &py_DB::Open,
            "Open the database, will create one if not exist.", py::arg("name"),
            py::arg("options") = Options())
-      .def("put", &py_DB::Put,
-           "Put a map from 'key' to 'value' into the database.")
+      .def("put",
+           (void (py_DB::*)(const py::bytes &, const py::bytes &)) & py_DB::Put,
+           "Put a map from key to value into the database.")
+      .def(
+          "put",
+          (void (py_DB::*)(const py::bytes &, const std::vector<py::bytes> &)) &
+              py_DB::Put,
+          "Put a map from key to multiple values into the database.")
       .def("get", &py_DB::Get,
            "Get the value of the provided key, will return None if there is no "
            "such key in the database.")
-      .def("delete", &py_DB::Delete, "Remove the 'key' from the database.")
+      .def("delete", &py_DB::Delete, "Remove the key from the database.")
       .def("compact", &py_DB::Compact, "Compact the data manually.")
       .def("iter", &py_DB::NewIterator, "Return an iterator from the database.")
       .def("close", &py_DB::Close, "Close the database.");
@@ -50,7 +57,7 @@ void py_DB::Close() {
 
 py_Iterator py_DB::NewIterator() {
   ReadOptions ro;
-  iters.push_back(py_Iterator(db_ptr->NewIterator(ro)));
+  iters.push_back(py_Iterator(db_ptr->NewIterator(ro), opts.splitter));
   return iters.back();
 }
 
@@ -58,7 +65,9 @@ void py_DB::Open(const std::string &name, const Options &options) {
   if (db_ptr != nullptr) {
     throw std::invalid_argument(kDBHasBeenOpened);
   }
-  Status st = DB::Open(options, name, &db_ptr);
+  opts = options;
+  opts.splitter.reset(NewEncodingSplitter());
+  Status st = DB::Open(opts, name, &db_ptr);
   report_error_if_necessary(st);
 }
 
@@ -67,8 +76,25 @@ void py_DB::Put(const py::bytes &key, const py::bytes &value) {
     throw std::invalid_argument(kDBHasBeenClosed);
   }
   std::string key_str(key);
-  std::string value_str(value);
-  Status st = db_ptr->Put(WriteOptions(), key_str, value_str);
+  std::vector<std::string> str_val{std::string(value)};
+  std::vector<Slice> slice_val(str_val.begin(), str_val.end());
+  Status st =
+      db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(slice_val));
+  report_error_if_necessary(st);
+}
+
+void py_DB::Put(const py::bytes &key, const std::vector<py::bytes> &values) {
+  if (db_ptr == nullptr) {
+    throw std::invalid_argument(kDBHasBeenClosed);
+  }
+  std::string key_str(key);
+  std::vector<std::string> str_vals;
+  for (auto value : values) {
+    str_vals.push_back(std::string(value));
+  }
+  std::vector<Slice> slice_vals(str_vals.begin(), str_vals.end());
+  Status st =
+      db_ptr->Put(WriteOptions(), key_str, opts.splitter->Stitch(slice_vals));
   report_error_if_necessary(st);
 }
 
@@ -85,7 +111,13 @@ py::object py_DB::Get(const py::bytes &key) {
   } else {
     report_error_if_necessary(st);
   }
-  return py::bytes(value);
+  std::vector<Slice> vals(opts.splitter->Split(value));
+  std::vector<std::string> str_vals;
+  for (auto val : vals) {
+    str_vals.push_back(val.ToString());
+  }
+  std::vector<py::bytes> bytes_vals(str_vals.begin(), str_vals.end());
+  return py::cast(bytes_vals);
 }
 
 void py_DB::Delete(const py::bytes &key) {
