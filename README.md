@@ -58,7 +58,7 @@ db = pyvidardb.DB()
 # Open the database, will create one if not exist.
 db.open("./hello_world")
 
-# Put a map from 'key1' to 'value1' into the database.
+# Put a pair of 'key1' and 'value1' into the database.
 db.put(b"key1", b"value1")
 
 # Get the value(s) of the provided key, will return None
@@ -73,7 +73,7 @@ assert value is None
 # Remove 'key1' from the database.
 db.delete(b"key1")
 
-# Put a map from 'key2' to multiple values into the database.
+# Put a pair of 'key2' and multiple values into the database.
 db.put(b"key2", [b"value1", b"value2", b"value3"])
 
 # Get the value(s) of the provided key.
