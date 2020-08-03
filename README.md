@@ -87,18 +87,6 @@ db.delete(b"key2")
 db.close()
 ```
 
-PyVidarDB supports storing one key with multiple values. For example,
-`db.put(b"key", [b"value1", b"value2", b"value3"])` will put a map
-from `key` to `[b"value1", b"value2", b"value3"]` into the database.
-To store one key with one value, simply call `db.put(b"key", b"value")`
-or `db.put(b"key", [b"value"])`. For `db.put()`, the passed key's type
-must be `bytes`, while the values' type can be `bytes` or a list of `bytes`. 
-
-For `db.get(key: bytes)` and `db.delete(key: bytes)`, the passed arguments'
-types must be `bytes`. The return type of `db.get(key: bytes)` is a list of
-`bytes` which contains all the values of that key. If the provided key does
-not exist in the database, `None` will be returned.
-
 More examples can be found at here: https://github.com/vidardb/PyVidarDB/tree/master/examples 
 
 See our [wiki](https://github.com/vidardb/PyVidarDB/wiki) page for more information.
