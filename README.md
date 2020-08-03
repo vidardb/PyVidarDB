@@ -4,8 +4,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyvidardb)
 [![PyPI](https://img.shields.io/pypi/v/PyVidarDB.svg)](https://pypi.org/project/PyVidarDB)
 
-
-A simple python wrapper for [VidarDB](https://github.com/vidardb/vidardb-engine).
+PyVidarDB is a simple, fast, and persistent key-value store that can store terabytes of data. It is the Python binding for [VidarDB](https://github.com/vidardb/vidardb-engine).
 
 ## Use PyVidarDB
 
