@@ -8,14 +8,14 @@ import pyvidardb
 # def random_string_generator(n):
 #     return ''.join(random.choice(string.digits) for _ in range(n))
 
-db = pyvidardb.DB()
 db_name = "vidardb_experiment.vidardb"
-db.open(db_name)
 # latest_data = []
-
 
 if os.path.exists(db_name):
     shutil.rmtree(db_name)
+
+db = pyvidardb.DB()
+db.open(db_name)
 
 put_start = time.time()
 for each in range(200000000):
