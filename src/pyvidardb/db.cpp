@@ -64,6 +64,7 @@ void py_DB::Open(const std::string& name, const Options& options) {
     throw std::invalid_argument(kDBHasBeenOpened);
   }
   opts = options;
+  opts.OptimizeLevelStyleCompaction();
   opts.splitter.reset(NewEncodingSplitter());
   Status st = DB::Open(opts, name, &db_ptr);
   report_error_if_necessary(st);

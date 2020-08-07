@@ -1,22 +1,27 @@
-import lmdb
-import time
+import os
 import random
-import string
+import shutil
+import time
 
+import lmdb
 
 # def random_string_generator(n):
 #     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
 
 
-env = lmdb.open('./lmdb_experiment.lmdb', map_size=80*1024*1024*1024)
+db_name = "lmdb_experiment.lmdb"
+
+if os.path.exists(db_name):
+    shutil.rmtree(db_name)
+
+env = lmdb.open(db_name, map_size=80 * 1024 * 1024 * 1024)
 # latest_data = []
 
 put_start = time.time()
 with env.begin(write=True) as txn:
     for each in range(200000000):
         k = str(random.uniform(1, 10000)).encode()
-        v = str(random.uniform(1, 10000)).encode()
-        txn.put(k, v)
+        txn.put(k, k)
         # if each > 990000:
         #     latest_data.append(k)
 put_end = time.time()
