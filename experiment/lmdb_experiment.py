@@ -29,7 +29,7 @@ current_time = now.strftime("%H:%M:%S")
 print("-------------------------------------")
 print("Experiment start at: ", current_time)
 print("[Put Data Number]: ", put_range)
-print("[Latest Data Number]:", latest_data_num)
+# print("[Latest Data Number]:", latest_data_num)
 print("[Random Get Number]:", random_get_range)
 
 put_start = time.time()
@@ -43,17 +43,21 @@ with env.begin(write=True) as txn:
             d = random.randint(0, each)
             if d < random_get_range:
                 data_list[d] = k
-        if each > (put_range - latest_data_num):
-            latest_data_list.append(k)
+        # if each > (put_range - latest_data_num):
+        #     latest_data_list.append(k)
 put_end = time.time()
 print("[Put]:", str(put_end - put_start))
 
-get_start = time.time()
-with env.begin() as txn:
-    for each in latest_data_list:
-        txn.get(each)
-get_end = time.time()
-print("[Get latest data]:", str(get_end - get_start))
+# get_start = time.time()
+# with env.begin() as txn:
+#     for each in latest_data_list:
+#         txn.get(each)
+# get_end = time.time()
+# print("[Get latest data]:", str(get_end - get_start))
+
+env.close()
+
+env = lmdb.open(db_name, map_size=80 * 1024 * 1024 * 1024)
 
 get_start = time.time()
 with env.begin() as txn:
