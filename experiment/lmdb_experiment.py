@@ -56,13 +56,18 @@ get_end = time.time()
 print("[Get latest data]:", str(get_end - get_start))
 
 get_start = time.time()
-with env.begin(write=True) as txn:
-    for each in range(random_get_range):
-        k = data_list[random.randint(0, len(data_list) - 1)]
-        txn.get(k)
-        txn.delete(k)
+with env.begin() as txn:
+    for each in data_list:
+        txn.get(each)
 get_end = time.time()
-print("[Get random data & delete]:", str(get_end - get_start))
+print("[Get random data]:", str(get_end - get_start))
+
+delete_start = time.time()
+with env.begin(write=True) as txn:
+    for each in data_list:
+        txn.delete(each)
+delete_end = time.time()
+print("[Delete random data]:", str(delete_end - delete_start))
 
 print("-------------------------------------")
 print()

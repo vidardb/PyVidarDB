@@ -57,12 +57,16 @@ print("[Get latest data]:", str(get_end - get_start))
 db.compact()
 
 get_start = time.time()
-for each in range(random_get_range):
-    k = data_list[random.randint(0, len(data_list) - 1)]
-    db.get(k)
-    db.delete(k)
+for each in data_list:
+    db.get(each)
 get_end = time.time()
-print("[Get random data & delete]:", str(get_end - get_start))
+print("[Get random data]:", str(get_end - get_start))
+
+delete_start = time.time()
+for each in data_list:
+    db.delete(each)
+delete_end = time.time()
+print("[Delete random data]:", str(delete_end - delete_start))
 
 print("-------------------------------------")
 print()
