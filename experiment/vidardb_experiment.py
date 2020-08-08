@@ -11,7 +11,7 @@ import pyvidardb
 
 db_name = "vidardb_experiment.vidardb"
 put_range = 1000000  # 200000000
-latest_data_num =  5000
+latest_data_num = 5000
 random_get_range = 5000
 
 data_list = list()
@@ -37,7 +37,12 @@ for each in range(put_range):
     # k = random_string_generator(10).encode()
     k = str(random.uniform(1, 10000)).encode()
     db.put(k, k)
-    data_list.append(k)
+    if each < random_get_range:
+        data_list.append(k)
+    else:
+        d = random.randint(0, each)
+        if d < random_get_range:
+            data_list[d] = k
     if each > (put_range - latest_data_num):
         latest_data_list.append(k)
 put_end = time.time()

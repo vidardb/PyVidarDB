@@ -37,7 +37,12 @@ with env.begin(write=True) as txn:
     for each in range(put_range):
         k = str(random.uniform(1, 10000)).encode()
         txn.put(k, k)
-        data_list.append(k)
+        if each < random_get_range:
+            data_list.append(k)
+        else:
+            d = random.randint(0, each)
+            if d < random_get_range:
+                data_list[d] = k
         if each > (put_range - latest_data_num):
             latest_data_list.append(k)
 put_end = time.time()
