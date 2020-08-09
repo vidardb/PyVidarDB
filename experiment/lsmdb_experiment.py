@@ -70,6 +70,5 @@ delete_end = time.time()
 print("[Delete random data]:", str(delete_end - delete_start))
 
 print("-------------------------------------")
-print()
 
 db.close()
