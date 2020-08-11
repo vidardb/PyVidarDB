@@ -6,6 +6,26 @@
 
 PyVidarDB is a simple, fast, and persistent key-value store that can store terabytes of data. It is the Python binding for [VidarDB](https://github.com/vidardb/vidardb-engine), which is a lineage of LevelDB and RocksDB.
 
+## Why should I try PyVidarDB?
+
+We did experiment with PyVidarDB and [py-lmdb](https://github.com/jnwatson/py-lmdb) to compare the performance of:
+
+- Putting data (inserting key-value pairs from 1 million to 200 million)
+- Getting data (getting 5000 random key-value pairs after putting data)
+- Deleting data (deleting 5000 random key-value pairs)
+- Database size (the size of the database of putting data)
+
+The result turns out: For "big" data scale (in our experiment, the data size larger than 25% of the RAM), PyVidarDB is 
+significantly faster than py-lmdb (putting and getting data); it is always faster then py-lmdb at deleting data; the 
+database size is always smaller than py-lmdb. In conclusion, PyVidarDB has an obviously better performance than py-lmdb.
+
+![experiment/experiment_put.png](experiment/experiment_put.png)
+![experiment/experiment_get.png](experiment/experiment_get.png)
+![experiment/experiment_delete.png](experiment/experiment_delete.png)
+![experiment/experiment_database_size.png](experiment/experiment_database_size.png)
+
+Please see [experiment](./experiment) for more information.
+
 ## Use PyVidarDB
 
 PyVidarDB guarantees to support `Python >= 3.5`.
