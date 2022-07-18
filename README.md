@@ -16,7 +16,7 @@ We did experiment with PyVidarDB and [py-lmdb](https://github.com/jnwatson/py-lm
 - Database size (the size of the database of putting data)
 
 The result turns out: For "big" data scale (in our experiment, the data size larger than 25% of the RAM), PyVidarDB is 
-significantly faster than py-lmdb (putting and getting data); it is always faster then py-lmdb at deleting data; the 
+significantly faster than py-lmdb (putting and getting data); it is always faster than py-lmdb at deleting data; the 
 database size is always smaller than py-lmdb. In conclusion, PyVidarDB has an obviously better performance than py-lmdb.
 
 ![experiment/experiment_put.png](experiment/experiment_put.png)
